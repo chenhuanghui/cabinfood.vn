@@ -4,7 +4,7 @@ import Head from 'next/head'
 export default () => (
     <div className="container">
         
-        {/* <Head>
+        <Head>
             <title>Site Maintenance</title>
         </Head>
         <main>
@@ -15,10 +15,7 @@ export default () => (
                     <p>&mdash; The Team</p>
                 </div>
             </article>
-        </main> */}
-
-        hello world
-
+        </main>
     </div>
 
    )
