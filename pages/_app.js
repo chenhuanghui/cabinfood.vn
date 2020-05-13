@@ -1,6 +1,7 @@
 // Stylesheets
 // =============================================
 import '../styles/style.css'
+import '../styles/modify.css'
 import '../styles/css/bootstrap.css'
 import '../styles/css/swiper.css'
 // import '../styles/css/dark.css'
