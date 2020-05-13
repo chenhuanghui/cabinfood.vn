@@ -10,7 +10,7 @@ const Cohoi = props => (
                             <div className="heading-block nobottomborder mb-4">
                                 <div className="before-heading mb-2">Chúng ta đang bước vào kỷ nguyên công nghệ <span className="badge badge-secondary ml-1"> DELIVERY </span></div>
                                 <h2 className="t600 ls0 nott">
-                                    <span className="underline">HÃY NẮM NGAY LẤY CƠ HỘI NGAY-</span>
+                                    <span className="underline">HÃY NẮM NGAY LẤY CƠ HỘI-</span>
                                     <br />Nếu bạn đang kinh doanh thực phẩm
                                 </h2>
                             </div>
