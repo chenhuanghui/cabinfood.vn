@@ -28,7 +28,9 @@ export default class Layout extends React.Component {
 
     this.state = {
       dataSection1: [],
-      dataSection2: []
+      dataSection2: [],
+      dataSection3: [],
+      dataSection4: []
 		}
   }
 
@@ -77,15 +79,26 @@ export default class Layout extends React.Component {
         currentComponent.setState({ dataSection2: record.fields })
     });
 
+    base('Section3').find('recxaGe3yTYlk0tpg', function(err, record) {
+      if (err) { console.error(err); return; }
+      console.log('Retrieved', record.fields);
+      currentComponent.setState({ dataSection3: record.fields })
+    });
+
+    base('Section4').find('recx0zxT5pAKoaTl2', function(err, record) {
+      if (err) { console.error(err); return; }
+      
+      record.fields.img_src1 = record.fields[`img_src1`][0].url;
+      record.fields.img_src2 = record.fields[`img_src2`][0].url;
+      console.log('Retrieved', record.fields);
+      currentComponent.setState({ dataSection4: record.fields })
+    });
+
    
   } 
 
   render () {
-
-    const { dataSection1, dataSection2 } = this.state
-    
-    // console.log("log render");
-    // console.log(dataSection1);
+    const { dataSection1, dataSection2, dataSection3, dataSection4} = this.state;
 
     return (
       <div className="Layout">
@@ -113,9 +126,10 @@ export default class Layout extends React.Component {
           <section id="content">
             <div className="content-wrap pb-0 clearfix">
               <Vande dataSection2={dataSection2}/>
-              <Hequa />
-              <Sanpham />
+              <Hequa dataSection3={dataSection3}/>
+              <Sanpham dataSection4={dataSection4}/>
               <Giaiphap />
+              
               <Khachhang />
               <Diadiem />  
               <Doitac />  
