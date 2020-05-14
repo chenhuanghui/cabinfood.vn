@@ -27,7 +27,8 @@ export default class Layout extends React.Component {
     super(props);
 
     this.state = {
-			airtablePosts: [],
+      dataSection1: [],
+      dataSection2: []
 		}
   }
 
@@ -58,32 +59,38 @@ export default class Layout extends React.Component {
     var Airtable = require('airtable');
     var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appZ1bpUbqpieMgfe');
     
+    var dataSite = [];
+
     var dataContent = [];
+    
     base('Section1').select({
         view: 'Grid view'
     }).firstPage(function(err, records) {
         if (err) { console.error(err); return; }
         records.forEach(function(record) {
-          // console.log('Retrieved', record.get('option'));
-          // console.log(record.fields);
-          dataContent.push(record.fields)
-          // console.log((dataContent[0][`img_src2`][0].url));
-          console.log((dataContent[0]));
+          dataContent.push(record.fields)          
         });
+
         dataContent[0].img_src1 = dataContent[0][`img_src1`][0].url;
         dataContent[0].img_src2 = dataContent[0][`img_src2`][0].url;
-        currentComponent.setState({ airtablePosts: dataContent[0] })
+        console.log(dataContent[0]);
+
+        dataSite = dataContent[0];
+        currentComponent.setState({ dataSection1: dataSite })
+        // console.log(dataSite);
     });
     
   } 
 
   render () {
-    // const { Component, pageProps } = this.props;
-    // console.log(pageProps);
-    const { airtablePosts } = this.state
+
+    const { dataSection1, dataSection2 } = this.state
+    
+    // console.log("log render");
+    // console.log(dataSection1);
+
     return (
       <div className="Layout">
-        {/* data {airtablePosts[`line1`]} */}
       <Head>
         <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
         <meta name="author" content="CABINFOOD" />
@@ -103,7 +110,8 @@ export default class Layout extends React.Component {
       <div className="stretched">
         <div id="wrapper" className="clearfix">
           <Header />
-          <Cohoi appT={airtablePosts}/>
+          <Cohoi dataSection1={dataSection1}/>
+          
           <section id="content">
             <div className="content-wrap pb-0 clearfix">
               <Vande />
