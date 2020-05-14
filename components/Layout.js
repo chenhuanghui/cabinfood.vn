@@ -55,31 +55,29 @@ export default class Layout extends React.Component {
           }
         }
     });
+    
     let currentComponent = this;
     var Airtable = require('airtable');
     var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appZ1bpUbqpieMgfe');
     
-    var dataSite = [];
-
-    var dataContent = [];
-    
-    base('Section1').select({
-        view: 'Grid view'
-    }).firstPage(function(err, records) {
-        if (err) { console.error(err); return; }
-        records.forEach(function(record) {
-          dataContent.push(record.fields)          
-        });
-
-        dataContent[0].img_src1 = dataContent[0][`img_src1`][0].url;
-        dataContent[0].img_src2 = dataContent[0][`img_src2`][0].url;
-        console.log(dataContent[0]);
-
-        dataSite = dataContent[0];
-        currentComponent.setState({ dataSection1: dataSite })
-        // console.log(dataSite);
+    base('Section1').find('rectP0kqTHT6oFfzA', function(err, record) {
+      if (err) { console.error(err); return; }
+        
+        record.fields.img_src1 = record.fields[`img_src1`][0].url;
+        record.fields.img_src2 = record.fields[`img_src2`][0].url;
+        // console.log('Retrieved', record.fields);
+        currentComponent.setState({ dataSection1: record.fields })
     });
-    
+
+    base('Section2').find('recyBzp9rEihIJnlr', function(err, record) {
+      if (err) { console.error(err); return; }
+        
+        record.fields.img_src1 = record.fields[`img_src1`][0].url;
+        console.log('Retrieved', record.fields);
+        currentComponent.setState({ dataSection2: record.fields })
+    });
+
+   
   } 
 
   render () {
@@ -114,7 +112,7 @@ export default class Layout extends React.Component {
           
           <section id="content">
             <div className="content-wrap pb-0 clearfix">
-              <Vande />
+              <Vande dataSection2={dataSection2}/>
               <Hequa />
               <Sanpham />
               <Giaiphap />
