@@ -1,6 +1,8 @@
 // components/Layout.js
 
 import Head from "next/head";
+import ReactDOM from 'react-dom';
+import React from 'react';
 
 import Header from "./Header";
 import NavBar from "./NavBar";
@@ -21,6 +23,14 @@ import Vande from "./sections/Vande";
 // import navButtons from "../config/buttons";
 
 export default class Layout extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+			airtablePosts: [],
+		}
+  }
+
   componentDidMount () {
     var swiper = new Swiper('.swiper-scroller', {
       slidesPerView: 'auto',
@@ -44,12 +54,36 @@ export default class Layout extends React.Component {
           }
         }
     });
+    let currentComponent = this;
+    var Airtable = require('airtable');
+    var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appZ1bpUbqpieMgfe');
+    
+    var dataContent = [];
+    base('Section1').select({
+        view: 'Grid view'
+    }).firstPage(function(err, records) {
+        if (err) { console.error(err); return; }
+        records.forEach(function(record) {
+          // console.log('Retrieved', record.get('option'));
+          // console.log(record.fields);
+          dataContent.push(record.fields)
+          // console.log((dataContent[0][`img_src2`][0].url));
+          console.log((dataContent[0]));
+        });
+        dataContent[0].img_src1 = dataContent[0][`img_src1`][0].url;
+        dataContent[0].img_src2 = dataContent[0][`img_src2`][0].url;
+        currentComponent.setState({ airtablePosts: dataContent[0] })
+    });
+    
   } 
 
   render () {
+    // const { Component, pageProps } = this.props;
+    // console.log(pageProps);
+    const { airtablePosts } = this.state
     return (
       <div className="Layout">
-    
+        {/* data {airtablePosts[`line1`]} */}
       <Head>
         <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
         <meta name="author" content="CABINFOOD" />
@@ -69,7 +103,7 @@ export default class Layout extends React.Component {
       <div className="stretched">
         <div id="wrapper" className="clearfix">
           <Header />
-          <Cohoi />
+          <Cohoi appT={airtablePosts}/>
           <section id="content">
             <div className="content-wrap pb-0 clearfix">
               <Vande />
