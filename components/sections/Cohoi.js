@@ -1,34 +1,36 @@
+
 const Cohoi = props => (
     <section id="slider">
         <div className="container">
             <div className="row align-items-center mt-5">
                 <div className="col-xl-6 pr-0 pr-xl-5 col-md-5 col-sm-11 col-12 mb-5 mb-lg-0">
 
-                    <h4 className="mb-0">Chúng ta đang bước vào kỷ nguyên công nghệ <span className="badge badge-secondary">DELIVERY</span></h4>
+                    <h4 className="mb-0">{props.dataSection1.line1}</h4>
                     <div className="heading-block">
-                        <h2 className="nott mb-3 font-primary"> <span>HÃY NẮM NGAY LẤY CƠ HỘI</span>
-                            <br />Nếu bạn đang kinh doanh thực phẩm
+                        <h2 className="nott mb-3 font-primary"> <span>{props.dataSection1.line2}</span>
+                            <br />{props.dataSection1.line3}
                         </h2>
                     </div>
-                    <p><i className="icon-angle-right1"></i> 9 triệu Người tiêu dùng đã quen với việc đặt món ăn và thức uống trên các ứng dụng Delivery
+                    <p><i className="icon-angle-right1"></i> {props.dataSection1.line4}
                             </p>
-                    <p><i className="icon-angle-right1"></i> Doanh thu thị trường đạt 207 triệu USD và có tốc độ tăng trưởng trung bình 28.5%/ năm
+                    <p><i className="icon-angle-right1"></i> {props.dataSection1.line5}
                             </p>
-                    <p><i className="icon-angle-right1"></i> Qua sự kiện COVID-19 đã là một minh chứng rõ ràng nhất thể hiện sức mạnh của kênh DELIVERY đối với ngành F&B
+                    <p><i className="icon-angle-right1"></i> {props.dataSection1.line6}
                             </p>
-                    <a href="#" className="button button-large nott ml-0"><i className="icon-line-download"></i> Tải ngay báo cáo & phân tích</a>
+                    <a href={props.dataSection1.btn_href} className="button button-large nott ml-0"><i className="icon-line-download"></i> {props.dataSection1.btn_title}</a>
                 </div>
                 <div className="col-xl-3 col-md-3 col-6 parallax" data-0="transform: translateY(0px);" data-600="transform: translateY(-30px);">
-                    <img src="/static/demos/articles/images/articles/2/1.png" alt="" className="rounded" data-animate="faster fadeInLeft" />
+                    <img src={props.dataSection1.img_src1} alt="" className="rounded" data-animate="faster fadeInLeft" />
                     <div className="card mt-3" data-animate="faster fadeInLeft" data-delay="100">
                         <div className="card-body rounded bgcolor">
-                            <h4 className="mb-2 ">500 đơn hàng/ngày</h4>
-                            <p className="mb-0">* Tổng trung bình đơn hàng của các nhà hàng trên ứng dụng giao hàng tại tp HCM</p>
+                            <h4 className="mb-2 ">{props.dataSection1.highlight_title}</h4>
+                            <p className="mb-0">{props.dataSection1.highlight_content}</p>
+
                         </div>
                     </div>
                 </div>
                 <div className="col-xl-3 col-md-3 col-6 p-0 parallax" data-0="transform: translateY(0);" data-600="transform: translateY(40px);">
-                    <img src="/static/demos/articles/images/articles/2/2.png" alt="" className="rounded" data-animate="faster fadeInLeft" data-delay="200" />
+                    <img src={props.dataSection1.img_src2} alt="" className="rounded" data-animate="faster fadeInLeft" data-delay="200" />
                 </div>
             </div>
         </div>

@@ -2,25 +2,25 @@ const Sanpham = props => (
     <div className="section">
         <div className="container">
                 <div className="heading-block mb-4 nobottomborder">
-                    <h2 className="t400 ls0 nott mb-0">Tập trung vào giá trị cốt lõi</h2>
+                    <h2 className="t400 ls0 nott mb-0">{props.dataSection4.line1}</h2>
                 </div>
                 
                 <div className="row align-items-center">
 
                     <div className="col-lg-3 col-sm-6">
-                        <img src="/static/demos/articles/images/author.jpg" alt="" />
+                        <img src= {props.dataSection4.img_src1} alt="" />
                     </div>
 
                     <div className="col-lg-4 col-sm-6 mt-3 mt-sm-0">
                         <div className="heading-block">
-                            <p className="mb-0">Lợi thế cạnh tranh lớn nhất của kinh doanh F&B thật sự chính là món ăn, thức uống NGON và TỐT. Đó chính là giá trị lõi khó thay thế hay sao chép. Hãy tập trung vào việc phát triển giá trị lõi. Các vấn đề khác không giúp tập trung cho sản phẩm của bạn, hãy để Cabin Food giúp bạn.</p>
+                            <p className="mb-0">{props.dataSection4.line2}</p>
                         </div>
-                        <h2 className="t700 ls0 mb-0 font-body">Christine Hà </h2>
-                            <span className="text-muted">Bếp trưởng, USA</span>
+                        <h2 className="t700 ls0 mb-0 font-body">{props.dataSection4.line3} </h2>
+                            <span className="text-muted">{props.dataSection4.line4}</span>
                     </div>
                     
                     <div className="col-lg-5 mt-5 mt-lg-0">
-                        <img src="/static/demos/articles/images/food/1.png" alt="Image 1" />
+                        <img src= {props.dataSection4.img_src2} alt="Image 1" />
                     </div>
 
                     {/* <div className="col-lg-5 mt-5 mt-lg-0">

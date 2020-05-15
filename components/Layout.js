@@ -1,6 +1,8 @@
 // components/Layout.js
 
 import Head from "next/head";
+import ReactDOM from 'react-dom';
+import React from 'react';
 
 import Header from "./Header";
 import NavBar from "./NavBar";
@@ -21,6 +23,18 @@ import Vande from "./sections/Vande";
 // import navButtons from "../config/buttons";
 
 export default class Layout extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      dataMenu: [],
+      dataSection1: [],
+      dataSection2: [],
+      dataSection3: [],
+      dataSection4: []
+		}
+  }
+
   componentDidMount () {
     var swiper = new Swiper('.swiper-scroller', {
       slidesPerView: 'auto',
@@ -44,12 +58,62 @@ export default class Layout extends React.Component {
           }
         }
     });
+    
+    let currentComponent = this;
+    var Airtable = require('airtable');
+    var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appZ1bpUbqpieMgfe');
+
+    var listMenu = [];
+    base('Menu').select({
+        view: 'Grid view'
+    }).firstPage(function(err, records) {
+        if (err) { console.error(err); return; }
+        records.forEach(function(record) {
+            listMenu.push(record.fields);
+        });
+        currentComponent.setState({dataMenu:listMenu});
+        console.log('Retrieved', listMenu);
+    });
+    base('Section1').find('rectP0kqTHT6oFfzA', function(err, record) {
+      if (err) { console.error(err); return; }
+        
+        record.fields.img_src1 = record.fields[`img_src1`][0].url;
+        record.fields.img_src2 = record.fields[`img_src2`][0].url;
+        // console.log('Retrieved', record.fields);
+        currentComponent.setState({ dataSection1: record.fields })
+    });
+
+    base('Section2').find('recyBzp9rEihIJnlr', function(err, record) {
+      if (err) { console.error(err); return; }
+        
+        record.fields.img_src1 = record.fields[`img_src1`][0].url;
+        // console.log('Retrieved', record.fields);
+        currentComponent.setState({ dataSection2: record.fields })
+    });
+
+    base('Section3').find('recxaGe3yTYlk0tpg', function(err, record) {
+      if (err) { console.error(err); return; }
+      // console.log('Retrieved', record.fields);
+      currentComponent.setState({ dataSection3: record.fields })
+    });
+
+    base('Section4').find('recx0zxT5pAKoaTl2', function(err, record) {
+      if (err) { console.error(err); return; }
+      
+      record.fields.img_src1 = record.fields[`img_src1`][0].url;
+      record.fields.img_src2 = record.fields[`img_src2`][0].url;
+      // console.log('Retrieved', record.fields);
+      currentComponent.setState({ dataSection4: record.fields })
+    });
+
+   
   } 
 
   render () {
+    const { dataMenu, dataSection1, dataSection2, dataSection3, dataSection4} = this.state;
+
     return (
       <div className="Layout">
-    
       <Head>
         <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
         <meta name="author" content="CABINFOOD" />
@@ -68,14 +132,16 @@ export default class Layout extends React.Component {
 
       <div className="stretched">
         <div id="wrapper" className="clearfix">
-          <Header />
-          <Cohoi />
+          <Header dataMenu={dataMenu}/>
+          <Cohoi dataSection1={dataSection1}/>
+          
           <section id="content">
             <div className="content-wrap pb-0 clearfix">
-              <Vande />
-              <Hequa />
-              <Sanpham />
+              <Vande dataSection2={dataSection2}/>
+              <Hequa dataSection3={dataSection3}/>
+              <Sanpham dataSection4={dataSection4}/>
               <Giaiphap />
+              
               <Khachhang />
               <Diadiem />  
               <Doitac />  

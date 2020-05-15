@@ -15,12 +15,10 @@ const Vande = props => (
 					<a href="#" className="button button-large ls0 nott ml-0 mt-2 clearfix">Tìm hiểu thêm</a>
 				</div>
 				<div className="col-md-6 offset-0 offset-md-1 mt-5 mt-md-0">
-					<div className="circle-border">
-
-					</div>
 				</div>
 			</div>
 		</div>
+
 
 
 		<style jsx>{`
