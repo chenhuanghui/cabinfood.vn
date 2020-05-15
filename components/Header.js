@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 // import "./Header.css";
-
+import Menu from "./sections/Menu";
 
 const Header = props => (
     // <Link href="">
@@ -20,9 +20,13 @@ const Header = props => (
 
                 <nav id="primary-menu">
                     <ul>
-                        <li><a href="#" className="ls0"><div>Câu chuyện</div></a></li>
-                        <li><a href="#" className="ls0"><div>Tư vấn</div></a></li>
-                        <li><a href="#" className="ls0" data-scrollto="#footer" data-highlight="yellow" data-speed="1200"><div>Liên hệ</div></a></li>
+                        {props.dataMenu.map(menuItem => (
+                            <Menu
+                                title={menuItem.title}
+                                href={menuItem.href}
+                            />
+                        ))}
+                        
                     </ul>
                 </nav>
 

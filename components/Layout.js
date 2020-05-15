@@ -27,6 +27,7 @@ export default class Layout extends React.Component {
     super(props);
 
     this.state = {
+      dataMenu: [],
       dataSection1: [],
       dataSection2: [],
       dataSection3: [],
@@ -61,7 +62,18 @@ export default class Layout extends React.Component {
     let currentComponent = this;
     var Airtable = require('airtable');
     var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appZ1bpUbqpieMgfe');
-    
+
+    var listMenu = [];
+    base('Menu').select({
+        view: 'Grid view'
+    }).firstPage(function(err, records) {
+        if (err) { console.error(err); return; }
+        records.forEach(function(record) {
+            listMenu.push(record.fields);
+        });
+        currentComponent.setState({dataMenu:listMenu});
+        console.log('Retrieved', listMenu);
+    });
     base('Section1').find('rectP0kqTHT6oFfzA', function(err, record) {
       if (err) { console.error(err); return; }
         
@@ -75,13 +87,13 @@ export default class Layout extends React.Component {
       if (err) { console.error(err); return; }
         
         record.fields.img_src1 = record.fields[`img_src1`][0].url;
-        console.log('Retrieved', record.fields);
+        // console.log('Retrieved', record.fields);
         currentComponent.setState({ dataSection2: record.fields })
     });
 
     base('Section3').find('recxaGe3yTYlk0tpg', function(err, record) {
       if (err) { console.error(err); return; }
-      console.log('Retrieved', record.fields);
+      // console.log('Retrieved', record.fields);
       currentComponent.setState({ dataSection3: record.fields })
     });
 
@@ -90,7 +102,7 @@ export default class Layout extends React.Component {
       
       record.fields.img_src1 = record.fields[`img_src1`][0].url;
       record.fields.img_src2 = record.fields[`img_src2`][0].url;
-      console.log('Retrieved', record.fields);
+      // console.log('Retrieved', record.fields);
       currentComponent.setState({ dataSection4: record.fields })
     });
 
@@ -98,7 +110,7 @@ export default class Layout extends React.Component {
   } 
 
   render () {
-    const { dataSection1, dataSection2, dataSection3, dataSection4} = this.state;
+    const { dataMenu, dataSection1, dataSection2, dataSection3, dataSection4} = this.state;
 
     return (
       <div className="Layout">
@@ -120,7 +132,7 @@ export default class Layout extends React.Component {
 
       <div className="stretched">
         <div id="wrapper" className="clearfix">
-          <Header />
+          <Header dataMenu={dataMenu}/>
           <Cohoi dataSection1={dataSection1}/>
           
           <section id="content">
